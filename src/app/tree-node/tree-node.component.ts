@@ -4,16 +4,7 @@ import {TreeNode} from '../tree-node';
 @Component({
   moduleId: module.id,
   selector: 'co-tree-node',
-  template: `
-  <div *ngIf="node">
-    <span *ngFor="let i of range(level)">&nbsp;&nbsp;</span>
-    <span (click)="extend()"
-    [class]="extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>{{node.name}}
-   </div>
-   <template [ngIf]="node.children">
-    <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"></co-tree-node>
-   </template>
-  `,
+  templateUrl: 'tree-node.component.html',
   styles: [],
   directives: [TreeNodeComponent]
 })
