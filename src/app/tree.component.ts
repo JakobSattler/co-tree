@@ -18,6 +18,7 @@ import {TreeNode} from './tree-node';
 })
 export class TreeComponent implements OnInit {
   rootNode: TreeNode;
+  selectedNode: TreeNode;
 
   constructor(private treeService: TreeService) {
   }
@@ -31,12 +32,13 @@ export class TreeComponent implements OnInit {
   }
 
   onNodeSelected(selectedNode: TreeNode) {
+    this.selectedNode = selectedNode;
     if (selectedNode.selected) {
-      console.log("uncheck");
       this.uncheckChildren(selectedNode);
+      this.uncheckParents(this.rootNode);
     } else if (!selectedNode.selected) {
-      console.log("check");
       this.checkChildren(selectedNode);
+      this.checkParents(this.rootNode);
     }
   }
 
@@ -60,4 +62,35 @@ export class TreeComponent implements OnInit {
     }
   }
 
+  checkParents(node: any) {
+    if (node == null) {
+      return;
+    }
+    let childSelected = false;
+    for (let n of node.children) {
+      this.checkParents(n);
+      if (n == this.selectedNode) {
+        childSelected = true;
+      }
+    }
+    if (childSelected) {
+      node.childSelected = true;
+    }
+  }
+
+  uncheckParents(node: any) {
+    if (node == null) {
+      return;
+    }
+    let childSelected = true;
+    for (let n of node.children) {
+      this.uncheckParents(n);
+      if (n == this.selectedNode) {
+        childSelected = false;
+      }
+    }
+    if (!childSelected) {
+      node.childSelected = false;
+    }
+  }
 }

@@ -42,7 +42,6 @@ export class TreeNodeComponent implements OnInit {
   }
 
   onNodeSelected() {
-    console.log(this.node.selected);
     this.nodeSelected.emit(this.node);
   }
 
