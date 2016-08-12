@@ -1,5 +1,5 @@
 <h1>Tree component</h1>
 <hr>
 <div *ngIf="rootNode">
-  <co-tree-node (nodeSelected)="treeService.onNodeSelected($event)" [node]="rootNode" [level]="0"></co-tree-node>
+  <co-tree-node (nodeSelected)="onNodeSelected($event)" [node]="rootNode" [level]="0"></co-tree-node>
 </div>

@@ -1,6 +1,7 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject} from '@angular/core';
 import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
+import {TreeComponent} from '../tree.component';
 
 @Component({
   moduleId: module.id,
@@ -24,7 +25,7 @@ export class TreeNodeComponent implements OnInit {
   @Output()
   nodeSelected = new EventEmitter();
 
-  constructor(private treeService: TreeService) {
+  constructor(private treeService: TreeService, @Inject(forwardRef(() => TreeComponent)) private treeComponent: TreeComponent) {
   }
 
   ngOnInit() {
@@ -32,7 +33,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   extend() {
-    this.extended = !this.extended;
+      this.extended = !this.extended;
   }
 
   getPadding() {
@@ -42,4 +43,5 @@ export class TreeNodeComponent implements OnInit {
   onNodeSelected() {
     this.nodeSelected.emit(this.node);
   }
+
 }

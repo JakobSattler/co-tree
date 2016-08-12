@@ -6,15 +6,12 @@ import {TreeNode} from './tree-node';
 
 @Injectable()
 export class TreeService {
+  treeNodes: Array<TreeNode>;
 
   constructor(private http: Http) {
   }
 
   getNodes() {
     return this.http.get('./organisations.json').map((response: Response) => <TreeNode>response.json());
-  }
-
-  onNodeSelected(node: TreeNode) {
-    alert(node.name);
   }
 }
