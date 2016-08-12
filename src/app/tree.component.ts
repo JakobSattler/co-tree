@@ -26,25 +26,38 @@ export class TreeComponent implements OnInit {
     this.treeService.getNodes().subscribe(
       (data: any) => {
         this.rootNode = data;
-        console.log(this.rootNode.children);
       }
     );
   }
 
   onNodeSelected(selectedNode: TreeNode) {
-    this.checkChildren(selectedNode);
+    if (selectedNode.selected) {
+      console.log("uncheck");
+      this.uncheckChildren(selectedNode);
+    } else if (!selectedNode.selected) {
+      console.log("check");
+      this.checkChildren(selectedNode);
+    }
   }
 
   checkChildren(node: any) {
     if (node == null) {
       return;
     }
-    console.log(node.name);
     node.selected = true;
     for (let n of node.children) {
       this.checkChildren(n);
     }
+  }
 
+  uncheckChildren(node: any) {
+    if (node == null) {
+      return;
+    }
+    node.selected = false;
+    for (let n of node.children) {
+      this.uncheckChildren(n);
+    }
   }
 
 }
