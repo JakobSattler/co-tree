@@ -1,8 +1,9 @@
 <div *ngIf="node" [style.padding-left]="getPadding()">
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
   <span (click)="extend()"
-        [class]="extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>{{node.name}}
+        [class]="extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
+  <span><input type="checkbox" (click)="onNodeSelected()"/>{{node.name}}</span>
 </div>
 <template [ngIf]="node.children && extended">
-  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"></co-tree-node>
+  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1" (nodeSelected)="treeService.onNodeSelected()"></co-tree-node>
 </template>

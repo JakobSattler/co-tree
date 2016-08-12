@@ -14,4 +14,8 @@ export class TreeService {
   getNodes() {
     return this.http.get('./organisations.json').map((response: Response) => <TreeNode>response.json());
   }
+
+  onNodeSelected(node: TreeNode) {
+    alert(node.name);
+  }
 }

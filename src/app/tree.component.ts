@@ -30,4 +30,8 @@ export class TreeComponent implements OnInit {
       }
     );
   }
+
+  onNodeSelected(node: TreeNode) {
+    alert(node.name);
+  }
 }
