@@ -5,5 +5,5 @@
   <span><input type="checkbox" (click)="onNodeSelected()"/>{{node.name}}</span>
 </div>
 <template [ngIf]="node.children && extended">
-  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1" (nodeSelected)="treeService.onNodeSelected()"></co-tree-node>
+  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1" (nodeSelected)="treeService.onNodeSelected($event)"></co-tree-node>
 </template>

@@ -6,7 +6,6 @@ import {TreeNode} from './tree-node';
 
 @Injectable()
 export class TreeService {
-  treeNodes: Array<TreeNode>;
 
   constructor(private http: Http) {
   }
