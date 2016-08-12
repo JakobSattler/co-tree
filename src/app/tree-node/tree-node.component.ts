@@ -5,7 +5,7 @@ import {TreeNode} from '../tree-node';
   moduleId: module.id,
   selector: 'co-tree-node',
   templateUrl: 'tree-node.component.html',
-  styles: [],
+  styleUrls: ['tree-node.component.css'],
   directives: [TreeNodeComponent]
 })
 export class TreeNodeComponent implements OnInit {
@@ -27,15 +27,17 @@ export class TreeNodeComponent implements OnInit {
 
   extend() {
     this.extended = !this.extended;
-    console.log(this.node.children);
   }
 
-  range() {
+  getRange(number: number) {
     let a = [];
-    for (let i = 0; i < this.level; i++){
+    for (let i = 0; i < number; i++) {
       a.push(i);
     }
     return a;
   }
 
+  getPadding() {
+    return 10 * this.level + 'px';
+  }
 }

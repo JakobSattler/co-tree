@@ -9,7 +9,12 @@ import {TreeNode} from './tree-node';
   selector: 'co-root',
   templateUrl: 'tree.component.html',
   directives: [TreeNodeComponent],
-  providers: [TreeService]
+  providers: [TreeService],
+  styles: [`
+    div {
+      padding-left: 10px;
+    }
+  `]
 })
 export class TreeComponent implements OnInit {
   rootNode: TreeNode;
