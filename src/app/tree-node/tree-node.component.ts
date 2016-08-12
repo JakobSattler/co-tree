@@ -30,7 +30,6 @@ export class TreeNodeComponent implements OnInit {
 
   ngOnInit() {
     console.log('level: ' + this.level);
-    this.node.selected = false;
   }
 
   extend() {
