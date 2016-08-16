@@ -1,13 +1,15 @@
-<div *ngIf="node" [style.padding-left]="getPadding()" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" #nodeDiv>
+<div *ngIf="node" [style.padding-left]="getPadding()" #nodeDiv>
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
-  <span (click)="extend()"
-        [class]="node.children.length == 0 ? 'glyphicon glyphicon-minus' : extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
-  <span>
+
+  <span class="nodeSpan">
+    <span (click)="extend()"
+          [class]="node.children.length == 0 ? 'glyphicon glyphicon-minus' : extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
     <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
     <input type="checkbox" [(ngModel)]="node.childSelected" onClick="return false;"/>
-    {{node.name}}
+    <span [innerHTML]="node.name" class="checkboxText"></span>
   </span>
 </div>
 <template [ngIf]="node.children && extended">
-  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1" (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
+  <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
+                (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
 </template>
