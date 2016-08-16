@@ -2,14 +2,17 @@
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
 
   <span class="nodeSpan">
-    <span (click)="extend()"
-          [class]="node.children.length == 0 ? 'glyphicon glyphicon-minus' : extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
-    <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
-    <input type="checkbox" [(ngModel)]="node.childSelected" onClick="return false;"/>
+    <span class="UISpan">
+      <span (click)="extend()"
+            [class]="node.children.length == 0 ? 'glyphicon glyphicon-minus' : extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
+      <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
+      <input type="checkbox" [(ngModel)]="node.childSelected" onClick="return false;"/>
+    </span>
     <span [innerHTML]="node.name" class="checkboxText"></span>
   </span>
 </div>
+
 <template [ngIf]="node.children && extended">
   <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
-                (nodeSelected)="treeComponent.nodeSelected($event)"></co-tree-node>
+                (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
 </template>
