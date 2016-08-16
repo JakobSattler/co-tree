@@ -27,15 +27,47 @@ export class TreeService implements OnInit {
     return this.http.get('./organisations.json').map((response: Response) => <TreeNode>response.json());
   }
 
+  /**
+   * Calls checkChildren() and checkParents() using the given node
+   *
+   * @param selectedNode The selected node
+   */
+  nodeSelected(selectedNode: TreeNode) {
+    this.checkChildren(selectedNode);
 
+    this.selectedNode = selectedNode;
+    this.checkParents(this.rootNode);
+  }
+
+  /**
+   * Calls uncheckChildre() and uncheckParents() using the given node
+   *
+   * @param selectedNode The selected node
+   */
+  nodeUnselected(selectedNode: TreeNode) {
+    this.uncheckChildren(selectedNode);
+
+    this.selectedNode = selectedNode;
+    this.uncheckParents(this.rootNode);
+  }
+
+  /**
+   * Check all children of the given node
+   *
+   * @param node The selected node
+   */
   checkChildren(node: any) {
     node.selected = true;
-    this.selectedNode = node;
     for (let n of node.children) {
       this.checkChildren(n);
     }
   }
 
+  /**
+   * Uncheck all children of the given node
+   *
+   * @param node The selected node
+   */
   uncheckChildren(node: any) {
     node.selected = false;
     for (let n of node.children) {
@@ -43,6 +75,11 @@ export class TreeService implements OnInit {
     }
   }
 
+  /**
+   * Check all parents using the variable "selectedNode"
+   *
+   * @param node Should be rootNode
+   */
   checkParents(node: any) {
     let childSelected = false;
     for (let n of node.children) {
@@ -56,6 +93,11 @@ export class TreeService implements OnInit {
     }
   }
 
+  /**
+   * Uncheck all parents using the variable "selectedNode"
+   *
+   * @param node Should be rootNode
+   */
   uncheckParents(node: any) {
     let childSelected = true;
     for (let n of node.children) {

@@ -11,5 +11,5 @@
 </div>
 <template [ngIf]="node.children && extended">
   <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
-                (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
+                (nodeSelected)="treeComponent.nodeSelected($event)"></co-tree-node>
 </template>

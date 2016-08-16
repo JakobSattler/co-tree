@@ -29,17 +29,15 @@ export class TreeComponent implements OnInit {
         this.rootNode = data;
       }
     );
-
-    console.log(this.rootNode);
   }
 
   onNodeSelected(selectedNode: TreeNode) {
-    console.log(this.treeService.rootNode);
-    this.selectedNode = selectedNode;
     if (selectedNode.selected) {
+      this.treeService.nodeUnselected(selectedNode);
       this.treeService.uncheckChildren(selectedNode);
       this.treeService.uncheckParents(this.rootNode);
     } else if (!selectedNode.selected) {
+      this.treeService.nodeSelected(selectedNode);
       this.treeService.checkChildren(selectedNode);
       this.treeService.checkParents(this.rootNode);
     }
