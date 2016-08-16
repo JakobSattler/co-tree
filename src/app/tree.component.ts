@@ -47,6 +47,7 @@ export class TreeComponent implements OnInit {
       return;
     }
     node.selected = true;
+    this.selectedNode = node;
     for (let n of node.children) {
       this.checkChildren(n);
     }
@@ -66,6 +67,7 @@ export class TreeComponent implements OnInit {
     if (node == null) {
       return;
     }
+    console.log(node.name);
     let childSelected = false;
     for (let n of node.children) {
       this.checkParents(n);
