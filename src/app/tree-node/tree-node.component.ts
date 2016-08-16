@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject, ViewChild, ElementRef} from '@angular/core';
 import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
 import {TreeComponent} from '../tree.component';
@@ -25,6 +25,9 @@ export class TreeNodeComponent implements OnInit {
   @Output()
   nodeSelected = new EventEmitter();
 
+  @ViewChild('nodeDiv')
+  nodeDiv: ElementRef;
+
   constructor(private treeService: TreeService, @Inject(forwardRef(() => TreeComponent)) private treeComponent: TreeComponent) {
   }
 
@@ -33,7 +36,8 @@ export class TreeNodeComponent implements OnInit {
   }
 
   extend() {
-      this.extended = !this.extended;
+    this.extended = !this.extended;
+
   }
 
   getPadding() {
@@ -44,4 +48,11 @@ export class TreeNodeComponent implements OnInit {
     this.nodeSelected.emit(this.node);
   }
 
+  onMouseEnter() {
+    this.nodeDiv.nativeElement.style.backgroundColor = 'black';
+  }
+
+  onMouseLeave() {
+    this.nodeDiv.nativeElement.style.backgroundColor = 'white';
+  }
 }
