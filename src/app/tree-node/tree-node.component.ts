@@ -32,7 +32,6 @@ export class TreeNodeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('level: ' + this.level);
   }
 
   extend() {
@@ -49,7 +48,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   onMouseEnter() {
-    this.nodeDiv.nativeElement.style.backgroundColor = 'black';
+    this.nodeDiv.nativeElement.style.backgroundColor = '#999999';
   }
 
   onMouseLeave() {

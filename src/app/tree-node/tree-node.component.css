@@ -5,3 +5,10 @@ span, div {
   user-select: none;
 }
 
+input[type=checkbox] {
+
+}
+
+span.checkboxText {
+  float: top;
+}

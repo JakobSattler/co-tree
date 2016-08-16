@@ -32,67 +32,14 @@ export class TreeComponent implements OnInit {
   }
 
   onNodeSelected(selectedNode: TreeNode) {
-    this.selectedNode = selectedNode;
     if (selectedNode.selected) {
-      this.uncheckChildren(selectedNode);
-      this.uncheckParents(this.rootNode);
+      this.treeService.nodeUnselected(selectedNode);
+      this.treeService.uncheckChildren(selectedNode);
+      this.treeService.uncheckParents(this.rootNode);
     } else if (!selectedNode.selected) {
-      this.checkChildren(selectedNode);
-      this.checkParents(this.rootNode);
-    }
-  }
-
-  checkChildren(node: any) {
-    if (node == null) {
-      return;
-    }
-    node.selected = true;
-    this.selectedNode = node;
-    for (let n of node.children) {
-      this.checkChildren(n);
-    }
-  }
-
-  uncheckChildren(node: any) {
-    if (node == null) {
-      return;
-    }
-    node.selected = false;
-    for (let n of node.children) {
-      this.uncheckChildren(n);
-    }
-  }
-
-  checkParents(node: any) {
-    if (node == null) {
-      return;
-    }
-    console.log(node.name);
-    let childSelected = false;
-    for (let n of node.children) {
-      this.checkParents(n);
-      if (n == this.selectedNode) {
-        childSelected = true;
-      }
-    }
-    if (childSelected) {
-      node.childSelected = true;
-    }
-  }
-
-  uncheckParents(node: any) {
-    if (node == null) {
-      return;
-    }
-    let childSelected = true;
-    for (let n of node.children) {
-      this.uncheckParents(n);
-      if (n == this.selectedNode) {
-        childSelected = false;
-      }
-    }
-    if (!childSelected) {
-      node.childSelected = false;
+      this.treeService.nodeSelected(selectedNode);
+      this.treeService.checkChildren(selectedNode);
+      this.treeService.checkParents(this.rootNode);
     }
   }
 }
