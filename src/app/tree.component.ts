@@ -17,7 +17,7 @@ import {TreeNode} from './tree-node';
   `]
 })
 export class TreeComponent implements OnInit {
-  rootNode: TreeNode;
+  nodes: Array<TreeNode> = [];
   selectedNode: TreeNode;
 
   constructor(private treeService: TreeService) {
@@ -26,20 +26,20 @@ export class TreeComponent implements OnInit {
   ngOnInit() {
     this.treeService.getNodes().subscribe(
       (data: any) => {
-        this.rootNode = data;
+        this.nodes.push(data);
       }
     );
   }
 
   onNodeSelected(selectedNode: TreeNode) {
     if (selectedNode.selected) {
-      this.treeService.nodeUnselected(selectedNode);
-      this.treeService.uncheckChildren(selectedNode);
-      this.treeService.uncheckParents(this.rootNode);
+      this.treeService.nodeUnselected(selectedNode, this.nodes[0]);
+      //this.treeService.uncheckChildren(selectedNode);
+      //this.treeService.uncheckParents(this.rootNode);
     } else if (!selectedNode.selected) {
-      this.treeService.nodeSelected(selectedNode);
-      this.treeService.checkChildren(selectedNode);
-      this.treeService.checkParents(this.rootNode);
+      this.treeService.nodeSelected(selectedNode, this.nodes[0]);
+      //this.treeService.checkChildren(selectedNode);
+      //this.treeService.checkParents(this.rootNode);
     }
   }
 }

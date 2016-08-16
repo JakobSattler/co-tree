@@ -7,17 +7,11 @@ import {Subject} from 'rxjs';
 
 @Injectable()
 export class TreeService implements OnInit {
-  rootNode: TreeNode;
   selectedNode: TreeNode;
 
   //nodeChange: Subject<TreeNode> = new Subject<TreeNode>();
 
   constructor(private http: Http) {
-    this.http.get('./organisations.json').map((response: Response) => <TreeNode>response.json()).subscribe(
-      (data: any) => {
-        this.rootNode = data;
-      }
-    );
   }
 
   ngOnInit(): any {
@@ -31,24 +25,24 @@ export class TreeService implements OnInit {
    * Calls checkChildren() and checkParents() using the given node
    *
    * @param selectedNode The selected node
+   * @param rootNode
    */
-  nodeSelected(selectedNode: TreeNode) {
+  nodeSelected(selectedNode: TreeNode, rootNode: TreeNode) {
     this.checkChildren(selectedNode);
-
     this.selectedNode = selectedNode;
-    this.checkParents(this.rootNode);
+    this.checkParents(rootNode);
   }
 
   /**
-   * Calls uncheckChildre() and uncheckParents() using the given node
+   * Calls uncheckChildren() and uncheckParents() using the given node
    *
    * @param selectedNode The selected node
+   * @param rootNode
    */
-  nodeUnselected(selectedNode: TreeNode) {
+  nodeUnselected(selectedNode: TreeNode, rootNode: TreeNode) {
     this.uncheckChildren(selectedNode);
-
     this.selectedNode = selectedNode;
-    this.uncheckParents(this.rootNode);
+    this.uncheckParents(rootNode);
   }
 
   /**
@@ -76,38 +70,30 @@ export class TreeService implements OnInit {
   }
 
   /**
-   * Check all parents using the variable "selectedNode"
+   * Check all parents of the variable "selectedNode"
    *
    * @param node Should be rootNode
    */
   checkParents(node: any) {
-    let childSelected = false;
     for (let n of node.children) {
-      this.checkParents(n);
       if (n == this.selectedNode) {
-        childSelected = true;
+        node.childSelected = true;
       }
-    }
-    if (childSelected) {
-      node.childSelected = true;
+      this.checkParents(n);
     }
   }
 
   /**
-   * Uncheck all parents using the variable "selectedNode"
+   * Uncheck all parents of the variable "selectedNode"
    *
    * @param node Should be rootNode
    */
   uncheckParents(node: any) {
-    let childSelected = true;
     for (let n of node.children) {
-      this.uncheckParents(n);
       if (n == this.selectedNode) {
-        childSelected = false;
+        node.childSelected = false;
       }
-    }
-    if (!childSelected) {
-      node.childSelected = false;
+      this.uncheckParents(n);
     }
   }
 }
