@@ -1,4 +1,13 @@
-import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject, ViewChild, ElementRef} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked
+} from '@angular/core';
 import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
 import {TreeComponent} from '../tree.component';
@@ -11,10 +20,11 @@ import {TreeComponent} from '../tree.component';
   directives: [TreeNodeComponent],
   providers: [TreeService]
 })
-export class TreeNodeComponent implements OnInit {
+export class TreeNodeComponent implements OnInit, AfterViewChecked {
 
   extended: boolean = false;
   paddingPerLevel: number = 18;
+  changing: boolean = false;
 
   @Input()
   level: number;
@@ -28,17 +38,23 @@ export class TreeNodeComponent implements OnInit {
   @Output()
   nodeSelected = new EventEmitter();
 
-  @ViewChild('nodeDiv')
-  nodeDiv: ElementRef;
+  @ViewChild('nodeTextInput')
+  nodeTextInput: ElementRef;
 
-  @ViewChild('nodeName')
-  nodeName: ElementRef;
+  @ViewChild('nodeText')
+  nodeText: ElementRef;
 
-  constructor(private treeService: TreeService, @Inject(forwardRef(() => TreeComponent)) private treeComponent: TreeComponent) {
+  constructor(private treeService: TreeService) {
   }
 
   ngOnInit() {
     this.node.level = this.level;
+  }
+
+  ngAfterViewChecked() {
+    if(this.changing){
+      this.nodeTextInput.nativeElement.focus();
+    }
   }
 
   extend() {
@@ -47,8 +63,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   getPadding() {
-
-    return this.paddingPerLevel * this.level + 10 + 'px';
+    return this.paddingPerLevel * this.level + 'px';
   }
 
   onNodeSelected() {
@@ -57,14 +72,30 @@ export class TreeNodeComponent implements OnInit {
 
   changePic() {
 
-    if(!(this.classString = prompt("Change Pic", "change pic here")))
-    {
+    if (!(this.classString = prompt("Change Pic", "change pic here"))) {
       this.classString = 'http://www.iconarchive.com/download/i83780/pelfusion/flat-folder/Close-Folder.ico';
-    };
+    }
+    ;
   }
 
   editNode() {
+    this.changing = true;
+  }
 
+  onKeyDown(event) {
+    //handle text change if source of event is nodeTextInput-element
+    if (event.srcElement == this.nodeTextInput.nativeElement) {
+      if (event.keyCode == 13) {
+        this.saveNodeChange();
+      }
+    }
+
+  }
+
+  saveNodeChange() {
+    this.nodeTextInput.nativeElement.blur();
+    this.node.name = this.nodeTextInput.nativeElement.value;
+    this.changing = false;
   }
 
   deleteNode() {
@@ -73,5 +104,7 @@ export class TreeNodeComponent implements OnInit {
       alert("Delete");
     }
   }
+
+
 
 }
