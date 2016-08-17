@@ -10,12 +10,29 @@
     </span>
     <span (click)="changePicWithMouse()" class={{classString}}></span>
     <span [innerHTML]="node.name" class="checkboxText"></span>
+
   </span>
 </div>
-
 
 
 <template [ngIf]="node.children && extended">
   <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
                 (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
 </template>
+
+
+<!-- Single button -->
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Action <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+
+

@@ -3,3 +3,4 @@
 <template [ngIf]="nodes">
   <co-tree-node *ngFor="let node of nodes" (nodeSelected)="onNodeSelected($event)"  [node]="node" [level]="0"></co-tree-node>
 </template>
+
