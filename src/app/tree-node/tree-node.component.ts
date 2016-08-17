@@ -60,7 +60,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   editNode() {
-    alert("asdf");
+
   }
 
 }
