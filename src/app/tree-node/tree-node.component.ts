@@ -23,7 +23,7 @@ import {TreeComponent} from '../tree.component';
 export class TreeNodeComponent implements OnInit, AfterViewChecked {
 
   extended: boolean = false;
-  paddingPerLevel: number = 18;
+  paddingPerLevel: number = 10;
   changing: boolean = false;
 
   @Input()
@@ -48,7 +48,6 @@ export class TreeNodeComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
-    this.node.level = this.level;
   }
 
   ngAfterViewChecked() {

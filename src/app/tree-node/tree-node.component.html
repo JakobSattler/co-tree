@@ -1,6 +1,4 @@
 <div *ngIf="node" [style.padding-left]="getPadding()">
-  <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
-
   <span class="nodeSpan">
     <span class="UISpan">
       <span (click)="extend()"
@@ -9,7 +7,7 @@
       <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected">
     </span>
     <span (click)="changePicWithMouse()" class={{classString}}></span>
-      <a *ngIf="!changing" href="#" [innerHTML]="node.name" onclick="return false" class="nodeText" #nodeText></a>
+      <a *ngIf="!changing" href="#" [innerHTML]="node.name + ' -- ' + node.nr" onclick="return false" class="nodeText" #nodeText></a>
       <input type="text" [hidden]="!changing" class="nodeTextInput" [value]="node.name"
              (keydown)="onKeyDown($event)" (blur)="saveNodeChange()" #nodeTextInput/>
     <div class="btn-group">
@@ -23,7 +21,6 @@
       </ul>
     </div>
   </span>
-
 </div>
 
 <template [ngIf]="node.children && extended">
