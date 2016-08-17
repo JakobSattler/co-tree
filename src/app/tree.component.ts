@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,Output, EventEmitter} from '@angular/core';
 import {Response} from '@angular/http';
 import {TreeNodeComponent} from './tree-node/tree-node.component';
 import {TreeService} from './tree.service';
@@ -16,7 +16,13 @@ import {TreeNode} from './tree-node';
     }
   `]
 })
+
+
 export class TreeComponent implements OnInit {
+  @Output()
+  nodePicSelected = new EventEmitter();
+
+
   nodes: Array<TreeNode> = [];
   selectedNode: TreeNode;
 
@@ -42,4 +48,6 @@ export class TreeComponent implements OnInit {
       //this.treeService.checkParents(this.rootNode);
     }
   }
+
+
 }

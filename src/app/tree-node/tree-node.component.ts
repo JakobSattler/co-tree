@@ -22,6 +22,9 @@ export class TreeNodeComponent implements OnInit {
   @Input()
   node: TreeNode;
 
+  @Input()
+  classString: String = 'glyphicon glyphicon-folder-close';
+
   @Output()
   nodeSelected = new EventEmitter();
 
@@ -54,4 +57,12 @@ export class TreeNodeComponent implements OnInit {
   onMouseLeave() {
     this.nodeDiv.nativeElement.style.backgroundColor = 'white';
   }
+
+  changePicWithMouse()
+  {
+
+    this.classString=prompt("Change Pic","change pic here");
+  }
+
+
 }

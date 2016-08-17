@@ -8,9 +8,12 @@
       <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
       <input type="checkbox" [(ngModel)]="node.childSelected" onClick="return false;"/>
     </span>
+    <span (click)="changePicWithMouse()" class={{classString}}></span>
     <span [innerHTML]="node.name" class="checkboxText"></span>
   </span>
 </div>
+
+
 
 <template [ngIf]="node.children && extended">
   <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
