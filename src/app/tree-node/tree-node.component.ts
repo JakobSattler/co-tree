@@ -35,6 +35,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.node.level = this.level;
   }
 
   extend() {
