@@ -8,16 +8,19 @@
       <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
       <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected">
     </span>
-    <span (click)="changePicWithMouse()" class={{classString}}></span>
+    <!-- <span class={{classString}}></span> -->
+    <span><img src={{classString}} id="logo" alt="img Icon" width="15"
+               height="15"/></span>
     <span [innerHTML]="node.name" class="checkboxText" #nodeName></span>
     <div class="btn-group">
-      <span class="caret" data-toggle="dropdown" aria-haspopup="true"
+      <span class="glyphicon glyphicon-cog" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
       </span>
       <ul class="dropdown-menu">
         <li>Eintrag löschen</li>
-        <li (click)="editNode()">Eintrag ändern</li>
-        <li>Symbol ändern</li>
+         <li>Eintrag einfügen</li>
+        <li (click)="editNode()"> Eintrag ändern</li>
+        <li  (click)="changePic()">Symbol ändern</li>
       </ul>
     </div>
   </span>
@@ -29,7 +32,6 @@
                 (nodeSelected)="treeComponent.onNodeSelected($event)"></co-tree-node>
 </template>
 
-<!-- Single button -->
 
 
 

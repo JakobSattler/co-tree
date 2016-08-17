@@ -23,7 +23,7 @@ export class TreeNodeComponent implements OnInit {
   node: TreeNode;
 
   @Input()
-  classString: String = 'glyphicon glyphicon-folder-close';
+  classString: String = 'http://www.iconarchive.com/download/i83780/pelfusion/flat-folder/Close-Folder.ico';
 
   @Output()
   nodeSelected = new EventEmitter();
@@ -54,7 +54,7 @@ export class TreeNodeComponent implements OnInit {
     this.nodeSelected.emit(this.node);
   }
 
-  changePicWithMouse() {
+  changePic() {
 
     this.classString = prompt("Change Pic", "change pic here");
   }
