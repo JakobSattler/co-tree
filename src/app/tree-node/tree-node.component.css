@@ -11,7 +11,11 @@ span, div {
   color: black;
   font-weight: normal;
 }
+
 .nodeText:hover {
   cursor: default;
 }
 
+.nodeTextInput {
+  height: 100%;
+}
