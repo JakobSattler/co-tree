@@ -2,13 +2,14 @@ import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject, View
 import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
 import {TreeComponent} from '../tree.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @Component({
   moduleId: module.id,
   selector: 'co-tree-node',
   templateUrl: 'tree-node.component.html',
   styleUrls: ['tree-node.component.css'],
-  directives: [TreeNodeComponent],
+  directives: [TreeNodeComponent, DropdownComponent],
   providers: [TreeService]
 })
 export class TreeNodeComponent implements OnInit {
@@ -44,7 +45,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   getPadding() {
-    return this.paddingPerLevel * this.level + 'px';
+    return this.paddingPerLevel * this.level + 10 + 'px';
   }
 
   onNodeSelected() {

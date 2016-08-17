@@ -37,8 +37,8 @@ const barrels: string[] = [
   'app',
   'app/shared',
   'app/tree-node',
-  'app/tree-node/dropdown-node',
-  'app/tree-node/tree-dropdown',
+  'app/tree-node/contextmenu',
+  'app/tree-node/dropdown',
   /** @cli-barrel */
 ];
 
