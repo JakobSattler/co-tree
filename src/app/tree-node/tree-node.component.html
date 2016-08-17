@@ -1,4 +1,4 @@
-<div *ngIf="node" [style.padding-left]="getPadding()" #nodeDiv>
+<div *ngIf="node" [style.padding-left]="getPadding()" class="row" #nodeDiv>
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
 
   <span class="nodeSpan">
@@ -6,14 +6,23 @@
       <span (click)="extend()"
             [class]="node.children.length == 0 ? 'glyphicon glyphicon-minus' : extended ? 'glyphicon glyphicon-menu-down' : 'glyphicon glyphicon-menu-right'"></span>
       <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
-      <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected" >
+      <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected">
     </span>
     <span (click)="changePicWithMouse()" class={{classString}}></span>
-    <span [innerHTML]="node.name" class="checkboxText"></span>
-
+    <span [innerHTML]="node.name" class="checkboxText" #nodeName></span>
+    <div class="btn-group">
+  <span class="caret" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
   </span>
+  <ul class="dropdown-menu">
+    <li>Eintrag löschen</li>
+    <li (click)="editNode()">Eintrag ändern</li>
+    <li>Symbol ändern</li>
+  </ul>
 </div>
+  </span>
 
+</div>
 
 <template [ngIf]="node.children && extended">
   <co-tree-node *ngFor="let child of node.children" [node]="child" [level]="level + 1"
@@ -21,14 +30,6 @@
 </template>
 
 <!-- Single button -->
-<div class="dropdown">
-  <button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown trigger
-    <span class="caret"></span>
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dLabel">
-    <li>asdf</li>
-  </ul>
-</div>
+
 
 
