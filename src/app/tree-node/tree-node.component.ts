@@ -28,11 +28,8 @@ export class TreeNodeComponent implements OnInit {
   @Output()
   nodeSelected = new EventEmitter();
 
-  @ViewChild('nodeDiv')
-  nodeDiv: ElementRef;
-
-  @ViewChild('nodeName')
-  nodeName: ElementRef;
+  @ViewChild('nodeText')
+  nodeText: ElementRef;
 
   constructor(private treeService: TreeService, @Inject(forwardRef(() => TreeComponent)) private treeComponent: TreeComponent) {
   }
@@ -55,12 +52,33 @@ export class TreeNodeComponent implements OnInit {
   }
 
   changePicWithMouse() {
-
     this.classString = prompt("Change Pic", "change pic here");
   }
 
   editNode() {
+    this.nodeText.nativeElement.focus();
+  }
 
+  onKeyDown(event) {
+    console.log(event.keyCode);
+
+    //handle text change if source of event is nodeText-element
+    if (event.srcElement == this.nodeText.nativeElement) {
+      if (event.keyCode == 13) {
+        this.saveNodeChange();
+      } else if (event.keyCode >= 64 && event.keyCode <= 90) {
+        this.node.name += String.fromCharCode(event.keyCode);
+      }
+    }
+  }
+
+  saveNodeChange() {
+    this.nodeText.nativeElement.blur();
+    console.log('save!');
+  }
+
+  discardNodeChange() {
+    console.log('discard');
   }
 
 }

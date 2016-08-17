@@ -5,3 +5,13 @@ span, div {
   user-select: none;
 }
 
+.nodeText {
+  text-decoration: inherit;
+  font-color: black;
+  color: black;
+  font-weight: normal;
+}
+.nodeText:hover {
+  cursor: default;
+}
+

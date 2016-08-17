@@ -1,4 +1,4 @@
-<div *ngIf="node" [style.padding-left]="getPadding()" #nodeDiv>
+<div *ngIf="node" [style.padding-left]="getPadding()">
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
 
   <span class="nodeSpan">
@@ -9,7 +9,9 @@
       <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected">
     </span>
     <span (click)="changePicWithMouse()" class={{classString}}></span>
-    <span [innerHTML]="node.name" class="checkboxText" #nodeName></span>
+      <a href="#" [innerHTML]="node.name" onclick="return false" class="nodeText"
+         (keydown)="onKeyDown($event)"
+         (blur)="discardNodeChange()" #nodeText></a>
     <div class="btn-group">
       <span class="caret dropdown-toogle" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
