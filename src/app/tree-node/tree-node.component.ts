@@ -2,20 +2,19 @@ import {Component, OnInit, Input, Output, EventEmitter, forwardRef, Inject, View
 import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
 import {TreeComponent} from '../tree.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
 
 @Component({
   moduleId: module.id,
   selector: 'co-tree-node',
   templateUrl: 'tree-node.component.html',
   styleUrls: ['tree-node.component.css'],
-  directives: [TreeNodeComponent, DropdownComponent],
+  directives: [TreeNodeComponent],
   providers: [TreeService]
 })
 export class TreeNodeComponent implements OnInit {
 
   extended: boolean = false;
-  paddingPerLevel: number = 10;
+  paddingPerLevel: number = 18;
 
   @Input()
   level: number;
@@ -48,6 +47,7 @@ export class TreeNodeComponent implements OnInit {
   }
 
   getPadding() {
+
     return this.paddingPerLevel * this.level + 10 + 'px';
   }
 
@@ -57,11 +57,21 @@ export class TreeNodeComponent implements OnInit {
 
   changePic() {
 
-    this.classString = prompt("Change Pic", "change pic here");
+    if(!(this.classString = prompt("Change Pic", "change pic here")))
+    {
+      this.classString = 'http://www.iconarchive.com/download/i83780/pelfusion/flat-folder/Close-Folder.ico';
+    };
   }
 
   editNode() {
 
+  }
+
+  deleteNode() {
+
+    if (this.node.children.length > 0) {
+      alert("Delete");
+    }
   }
 
 }
