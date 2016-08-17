@@ -32,6 +32,9 @@ export class TreeNodeComponent implements OnInit {
   @ViewChild('nodeDiv')
   nodeDiv: ElementRef;
 
+  @ViewChild('nodeName')
+  nodeName: ElementRef;
+
   constructor(private treeService: TreeService, @Inject(forwardRef(() => TreeComponent)) private treeComponent: TreeComponent) {
   }
 
@@ -52,19 +55,13 @@ export class TreeNodeComponent implements OnInit {
     this.nodeSelected.emit(this.node);
   }
 
-  onMouseEnter() {
-    this.nodeDiv.nativeElement.style.backgroundColor = '#999999';
+  changePicWithMouse() {
+
+    this.classString = prompt("Change Pic", "change pic here");
   }
 
-  onMouseLeave() {
-    this.nodeDiv.nativeElement.style.backgroundColor = 'white';
+  editNode() {
+
   }
-
-  changePicWithMouse()
-  {
-
-    this.classString=prompt("Change Pic","change pic here");
-  }
-
 
 }
