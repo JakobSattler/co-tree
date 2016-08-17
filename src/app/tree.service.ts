@@ -1,20 +1,18 @@
-import {Injectable, OnInit} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
-
 import 'rxjs/add/operator/map';
 import {TreeNode} from './tree-node';
-import {Subject} from 'rxjs';
 
+/**
+ * Used to get data using HTTP and to (un)check nodes
+ */
 @Injectable()
-export class TreeService implements OnInit {
+export class TreeService {
   selectedNode: TreeNode;
 
   //nodeChange: Subject<TreeNode> = new Subject<TreeNode>();
 
   constructor(private http: Http) {
-  }
-
-  ngOnInit(): any {
   }
 
   getNodes() {
@@ -28,8 +26,13 @@ export class TreeService implements OnInit {
    * @param rootNode
    */
   nodeSelected(selectedNode: TreeNode, rootNode: TreeNode) {
+    if (selectedNode.children.length > 0) {
+      selectedNode.childSelected = true;
+    }
+    console.log(selectedNode);
     this.checkChildren(selectedNode);
     this.selectedNode = selectedNode;
+
     this.checkParents(rootNode);
   }
 
@@ -40,32 +43,24 @@ export class TreeService implements OnInit {
    * @param rootNode
    */
   nodeUnselected(selectedNode: TreeNode, rootNode: TreeNode) {
-    this.uncheckChildren(selectedNode);
+    if (selectedNode.children.length > 0) {
+      selectedNode.childSelected = false;
+    }
+    console.log(selectedNode);
+    this.checkChildren(selectedNode);
     this.selectedNode = selectedNode;
     this.uncheckParents(rootNode);
   }
 
   /**
-   * Check all children of the given node
+   * Check (if unchecked) or uncheck (if checked) all children of the given node
    *
    * @param node The selected node
    */
   checkChildren(node: any) {
-    node.selected = true;
+    node.selected = !node.selected;
     for (let n of node.children) {
       this.checkChildren(n);
-    }
-  }
-
-  /**
-   * Uncheck all children of the given node
-   *
-   * @param node The selected node
-   */
-  uncheckChildren(node: any) {
-    node.selected = false;
-    for (let n of node.children) {
-      this.uncheckChildren(n);
     }
   }
 
@@ -76,10 +71,10 @@ export class TreeService implements OnInit {
    */
   checkParents(node: any) {
     for (let n of node.children) {
+      n.childSelected = this.checkParents(n);
       if (n == this.selectedNode) {
-        node.childSelected = true;
+        return true;
       }
-      this.checkParents(n);
     }
   }
 
