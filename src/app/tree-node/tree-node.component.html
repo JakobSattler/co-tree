@@ -1,4 +1,4 @@
-<div *ngIf="node" [style.padding-left]="getPadding()" class="row" #nodeDiv>
+<div *ngIf="node" [style.padding-left]="getPadding()" #nodeDiv>
   <!--<span *ngFor="let i of range(level)">&nbsp;&nbsp;&nbsp;</span>-->
 
   <span class="nodeSpan">
@@ -11,15 +11,15 @@
     <span (click)="changePicWithMouse()" class={{classString}}></span>
     <span [innerHTML]="node.name" class="checkboxText" #nodeName></span>
     <div class="btn-group">
-  <span class="caret" data-toggle="dropdown" aria-haspopup="true"
-          aria-expanded="false">
-  </span>
-  <ul class="dropdown-menu">
-    <li>Eintrag löschen</li>
-    <li (click)="editNode()">Eintrag ändern</li>
-    <li>Symbol ändern</li>
-  </ul>
-</div>
+      <span class="caret" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+      </span>
+      <ul class="dropdown-menu">
+        <li>Eintrag löschen</li>
+        <li (click)="editNode()">Eintrag ändern</li>
+        <li>Symbol ändern</li>
+      </ul>
+    </div>
   </span>
 
 </div>
