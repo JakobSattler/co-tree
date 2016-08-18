@@ -1,5 +1,4 @@
-import {Component, OnInit,Output, EventEmitter} from '@angular/core';
-import {Response} from '@angular/http';
+import {Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy} from '@angular/core';
 import {TreeNodeComponent} from './tree-node/tree-node.component';
 import {TreeService} from './tree.service';
 import {TreeNode} from './tree-node';
@@ -16,35 +15,26 @@ import {TreeNode} from './tree-node';
     }
   `]
 })
-
-
 export class TreeComponent implements OnInit {
-  @Output()
-  nodePicSelected = new EventEmitter();
-
-
-  nodes: Array<TreeNode> = [];
-  selectedNode: TreeNode;
+  rootNode: TreeNode;
 
   constructor(private treeService: TreeService) {
   }
 
-
-
   ngOnInit() {
     this.treeService.getNodes().subscribe(
-      (data: any) => {
-        this.nodes.push(data);
-        console.log(this.nodes[0]);
+      (data: TreeNode) => {
+        this.rootNode = data;
+        console.log(data);
       }
     );
   }
 
   onNodeSelected(selectedNode: TreeNode) {
     if (selectedNode.selected) {
-      this.treeService.nodeUnselected(selectedNode, this.nodes[0]);
+      this.treeService.nodeUnselected(selectedNode, this.rootNode);
     } else if (!selectedNode.selected) {
-      this.treeService.nodeSelected(selectedNode, this.nodes[0]);
+      this.treeService.nodeSelected(selectedNode, this.rootNode);
     }
   }
 
