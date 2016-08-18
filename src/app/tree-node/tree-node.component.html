@@ -9,7 +9,7 @@
       <input type="checkbox" (click)="onNodeSelected()" [(ngModel)]="node.selected"/>
       <input *ngIf="node.children.length > 0" type="checkbox" [(ngModel)]="node.childSelected">
     </span>
-    <span (click)="changePicWithMouse()" class={{classString}}></span>
+    <span><img src={{classString}} style="width:17px;height:18px;"></span>
       <a *ngIf="!changing" href="#" [innerHTML]="node.name" onclick="return false" class="nodeText" #nodeText></a>
       <input type="text" [hidden]="!changing" class="nodeTextInput" [value]="node.name"
              (keydown)="onKeyDown($event)" (blur)="saveNodeChange()" #nodeTextInput/>
@@ -21,7 +21,7 @@
         <li><a href="#">Eintrag löschen</a></li>
         <li (click)="editNode()"><a>Eintrag ändern</a></li>
         <li (click)="addNode()"><a>Eintrag hinzufügen</a></li>
-        <li><a>Symbol ändern</a></li>
+        <li (click)="changePic()"><a>Symbol ändern</a></li>
       </ul>
     </div>
   </span>
