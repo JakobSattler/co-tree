@@ -34,6 +34,8 @@ export class TreeService {
     this.selectedNode = selectedNode;
 
     this.checkParents(rootNode);
+
+    //this.checkChildrenIt(rootNode);
   }
 
   /**
@@ -59,8 +61,26 @@ export class TreeService {
    */
   checkChildren(node: any) {
     node.selected = !node.selected;
+    console.log(node.name);
     for (let n of node.children) {
       this.checkChildren(n);
+    }
+  }
+
+  checkChildrenIt(node: any) {
+    if (node == null) {
+      return;
+    }
+    let nodes: TreeNode[] = [];
+    nodes.push(node);
+
+    while (nodes.length > 0) {
+      node = nodes[nodes.length - 1];
+      nodes.splice(nodes.length - 1, 1);
+      console.log(node.name);
+      for (let n of node.children) {
+        nodes.push(n);
+      }
     }
   }
 

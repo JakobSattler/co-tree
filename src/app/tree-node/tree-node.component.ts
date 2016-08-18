@@ -8,9 +8,25 @@ import {
   ElementRef,
   AfterViewChecked
 } from '@angular/core';
-import {TreeNode} from '../tree-node';
 import {TreeService} from '../tree.service';
-import {TreeComponent} from '../tree.component';
+
+export class TreeNode {
+  name: String;
+  nr: number;
+  children: Array<TreeNode>;
+  selected: boolean;
+  childSelected: boolean = false;
+
+  constructor(name: String, nr: number, children: Array<TreeNode>) {
+    this.name = name;
+    this.nr = nr;
+    if (children == null) {
+      this.children = new Array<TreeNode>();
+    } else {
+      this.children = children;
+    }
+  }
+}
 
 @Component({
   moduleId: module.id,
@@ -48,10 +64,12 @@ export class TreeNodeComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.changing = false;
+    this.extended = false;
   }
 
   ngAfterViewChecked() {
-    if(this.changing){
+    if (this.changing) {
       this.nodeTextInput.nativeElement.focus();
     }
   }
@@ -81,6 +99,12 @@ export class TreeNodeComponent implements OnInit, AfterViewChecked {
     this.changing = true;
   }
 
+  addNode() {
+    let node: TreeNode = new TreeNode("test", 1283934, null);
+    console.log(node);
+    this.node.children.push(node);
+  }
+
   onKeyDown(event) {
     //handle text change if source of event is nodeTextInput-element
     if (event.srcElement == this.nodeTextInput.nativeElement) {
@@ -103,7 +127,5 @@ export class TreeNodeComponent implements OnInit, AfterViewChecked {
       alert("Delete");
     }
   }
-
-
 
 }
